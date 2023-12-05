@@ -6,12 +6,13 @@ body{
 .opaque{
     margin-top: 75px;
     background-color: rgb(255, 255, 255, 0.3);
-    border-radius: 25px;
+    border-radius: 20px;
 }
 .opaqueBorder{
     background-color: rgb(255, 255, 255, 0.3);
     border: solid 15px;
     border-color: rgb(255, 255, 255, 0.2);
+    border-radius: 40px;
     margin-top: 100px;
 }
 .space{
