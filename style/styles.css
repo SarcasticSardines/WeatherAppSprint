@@ -1,3 +1,22 @@
 body{
-    background-image: url(../assets/version=1&uuid=BAD06027-CE05-4AA8-9796-E54E6ACEB446&mode=compatible&noloc=0\ copy\ 2.jpeg);
+    background-image: url(../assets/tree.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.opaque{
+    margin-top: 75px;
+    background-color: rgb(255, 255, 255, 0.3);
+    border-radius: 25px;
+}
+.opaqueBorder{
+    background-color: rgb(255, 255, 255, 0.3);
+    border: solid 15px;
+    border-color: rgb(255, 255, 255, 0.2);
+    margin-top: 100px;
+}
+.space{
+    margin-left: 21%;
+    background-color: rgb(255, 255, 255, 0.4);
+    border: transparent;
+    border-radius: 25px;
 }
