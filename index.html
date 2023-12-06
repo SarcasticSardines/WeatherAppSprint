@@ -13,13 +13,17 @@
     <div class="row">
       <div class="col-5">
         <h5 style="position: absolute;">Search City:</h5>
-        <input id="searchBar" class="space">
+        <form autocomplete="off"> 
+          <input id="searchBar" class="space"> 
+          <div id="results"></div>
+        </form>
+        <img src="./assets/search.png" alt="..." style="height: 35px; position: absolute;">
       </div>
       <div class="col">
         <h4 id="fullDate">Sunday, November 27</h4>
       </div>
       <div class="col">
-        <a> Favorites <img id="faveList" src="..." alt="...">
+        <a> Favorites <img id="faveList" src="./assets/heart-outline.png" alt="..." style="height: 30px;">
         </a>
       </div>
     </div>
@@ -29,15 +33,15 @@
     <div class="row">
       <div class="col">
         <h1 id="dayOnly">Sunday</h1>
-        <img src="..." alt="...">
+        <img id="mainIcon" src="..." alt="...">
         <h1 id="currentTemp">99*</h1>
       </div>
       <div class="col">
-        <img src="..." alt="..." style="position: absolute;">
+        <img src="./assets/navIcon.png" alt="..." style="position: absolute; height: 55px;">
         <h1 id="bigCity">Stockton</h1>
         <h1 id="bigState">California</h1>
         <h6 id="maxNmin">Max.,Min.</h6>
-        <img id="fave" src="..." alt="..." style="position: absolute;">
+        <img id="fave" src="./assets/heart-outline.png" alt="..." style="position: absolute; height: 35px;">
       </div>
     </div>
    </div>
@@ -45,47 +49,47 @@
 
   <div class="container opaqueBorder">
     <div class="row">
-      <div id="dayOne" class="col">
-        <p>Monday</p>
-        <img src="" alt="...">
-        <p>888</p>
-        <img src="" alt="...">
-        <p>888</p>
+      <div class="col">
+        <p id="dayOne">Monday</p>
+        <img id="iconDay1" src="" alt="...">
+        <p id="d1High">888</p>
+        <img id="iconNight1" src="" alt="...">
+        <p id="d1Low">888</p>
       </div>
-      <div id="dayTwo" class="col">
-        <p>Monday</p>
-        <img src="" alt="...">
-        <p>888</p>
-        <img src="" alt="...">
-        <p>888</p>
+      <div class="col">
+        <p id="dayTwo">Monday</p>
+        <img id="iconDay2" src="" alt="...">
+        <p id="d2High">888</p>
+        <img id="iconNight2" src="" alt="...">
+        <p id="d2Low">888</p>
       </div>
-      <div id="dayThree" class="col">
-        <p>Monday</p>
-        <img src="" alt="...">
-        <p>888</p>
-        <img src="" alt="...">
-        <p>888</p>
+      <div class="col">
+        <p id="dayThree">Monday</p>
+        <img id="iconDay3" src="" alt="...">
+        <p id="d3High">888</p>
+        <img id="iconNight3" src="" alt="...">
+        <p id="d3Low">888</p>
       </div>
-      <div id="dayFour" class="col">
-        <p>Monday</p>
-        <img src="" alt="...">
-        <p>888</p>
-        <img src="" alt="...">
-        <p>888</p>
+      <div class="col">
+        <p id="dayFour">Monday</p>
+        <img id="iconDay4" src="" alt="...">
+        <p id="d4High">888</p>
+        <img id="iconNight4" src="" alt="...">
+        <p id="d4Low">888</p>
       </div>
-      <div id="dayFive" class="col">
-        <p>Monday</p>
-        <img src="" alt="...">
-        <p>888</p>
-        <img src="" alt="...">
-        <p>888</p>
+      <div class="col">
+        <p id="dayFive">Monday</p>
+        <img id="iconDay5" src="" alt="...">
+        <p id="d5High">888</p>
+        <img id="iconNight5" src="" alt="...">
+        <p id="d5Low">888</p>
       </div>
-      <div id="daySix" class="col">
-        <p>Monday</p>
-        <img src="" alt="...">
-        <p>888</p>
-        <img src="" alt="...">
-        <p>888</p>
+      <div class="col">
+        <p id="daySix">Monday</p>
+        <img id="iconDay6" src="" alt="...">
+        <p id="d6High">888</p>
+        <img id="iconNight6" src="" alt="...">
+        <p id="d6Low">888</p>
       </div>
     </div>
   </div>
