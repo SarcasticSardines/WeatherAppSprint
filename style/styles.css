@@ -3,6 +3,25 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
+a:link{
+    color: white;
+    text-decoration: none;
+}
+a:visited{
+    color: white;
+    text-decoration: none;
+}
+a :hover{
+    color: white;
+    text-decoration: none;
+}
+a :active{
+    color: white;
+    text-decoration: none;
+}
+.txtC {
+    color: white;
+}
 .opaque{
     margin-top: 75px;
     background-color: rgb(255, 255, 255, 0.3);
@@ -20,4 +39,17 @@ body{
     background-color: rgb(255, 255, 255, 0.4);
     border: transparent;
     border-radius: 25px;
+}
+.backBtn{
+    background-color: rgb(255, 255, 255, 0.3);
+    border-radius: 40px;
+}
+.btnPosition{
+    margin-left: 4%;
+}
+.searchOptions{
+    position: absolute;
+    background-color: rgb(255, 255, 255, 0.5);
+    border-radius: 25px;
+    padding: 10px;
 }

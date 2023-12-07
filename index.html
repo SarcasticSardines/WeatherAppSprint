@@ -9,21 +9,21 @@
   </head>
   <body>
 
-   <div class="container">
+   <div class="container-fluid m-5">
     <div class="row">
       <div class="col-5">
-        <h5 style="position: absolute;">Search City:</h5>
+        <h5 class="txtC" style="position: absolute;">Search City:</h5>
         <form autocomplete="off"> 
-          <input id="searchBar" class="space"> 
+          <input id="searchBar" type="text" class="space"> 
           <div id="results"></div>
         </form>
         <img src="./assets/search.png" alt="..." style="height: 35px; position: absolute;">
       </div>
       <div class="col">
-        <h4 id="fullDate">Sunday, November 27</h4>
+        <h4 class="txtC" id="fullDate">Sunday, November 27</h4>
       </div>
       <div class="col">
-        <a> Favorites <img id="faveList" src="./assets/heart-outline.png" alt="..." style="height: 30px;">
+        <a href="./pages/favorites.html"> Favorites <img id="faveList" src="./assets/heart-outline.png" alt="..." style="height: 30px;">
         </a>
       </div>
     </div>
@@ -32,15 +32,15 @@
    <div class="container opaque">
     <div class="row">
       <div class="col">
-        <h1 id="dayOnly">Sunday</h1>
+        <h1 class="txtC" id="dayOnly">Sunday</h1>
         <img id="mainIcon" src="..." alt="...">
-        <h1 id="currentTemp">99*</h1>
+        <h1 class="txtC" id="currentTemp">99*</h1>
       </div>
       <div class="col">
         <img src="./assets/navIcon.png" alt="..." style="position: absolute; height: 55px;">
-        <h1 id="bigCity">Stockton</h1>
-        <h1 id="bigState">California</h1>
-        <h6 id="maxNmin">Max.,Min.</h6>
+        <h1 class="txtC" id="bigCity">Stockton</h1>
+        <h1 class="txtC" id="bigState">California</h1>
+        <h6 class="txtC" id="maxNmin">Max.,Min.</h6>
         <img id="fave" src="./assets/heart-outline.png" alt="..." style="position: absolute; height: 35px;">
       </div>
     </div>
@@ -48,7 +48,7 @@
 
 
   <div class="container opaqueBorder">
-    <div class="row">
+    <div class="row txtC">
       <div class="col">
         <p id="dayOne">Monday</p>
         <img id="iconDay1" src="" alt="...">

@@ -43,15 +43,34 @@ let d5Low = document.getElementById("d5Low");
 let d6Low = document.getElementById("d6Low");
 
 
+let urLat;
+let urLong;
+//stores user's lat and long values if they accept geolocation
+let testPlace = "Stockton, CA";
+let locateData;
+//to hold data from geosearch (of names) like lat, long, city, state, country
+let cityData;
+//add event listener to display city name, state name
+let dateData;
+//add event listener to display day of week, month, day of month(number)
+let dayData;
+//add event listener to display day of week only
+let favoriteArray = [];
+//array to save favorited cities to
+let userSearch = "";
+//empty string input for searchbar function
+let option1 = [];
+let option2 = [];
+let option3 = [];
+let option4 = [];
+let option5 = [];
+//(max) limit of 5 arrays to hold+display autocomplete options for locations search in (under) searchbar
+let storeMe = "";
+//FOR LOCAL STORAGE
+
 
 
 navigator.geolocation.getCurrentPosition(AllowAcc, DenyAcc);
-
-
-let urLat;
-let urLong;
-let testPlace = "Stockton, CA";
-
 
 function randomLat(){
     let latnum = (Math.random()*180).toFixed(3);
@@ -88,26 +107,28 @@ function DenyAcc(error){
     console.log(randomLat() + ", " + randomLong())
 }
 
+
+
 async function Current(){
     const promise = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${urLat}&lon=${urLong}&appid=${apiKey}&units=imperial`)
     const data = await promise.json();
     
     console.log(data.weather[0].icon);
-    console.log(data.main.temp);
+    // console.log(data);
 }
 
 async function foreCast(){
     const promise = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${urLat}&lon=${urLong}&appid=${apiKey}&units=imperial`)
     const data = await promise.json();
 
-    console.log(data.list[0].main.temp_max);
+    console.log(data.list);
 }
 
 async function ourPlace(){
     const promise = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${urLat}&lon=${urLong}&limit=5&appid=${apiKey}`)
     const data = await promise.json();
 
-    console.log(data[0].name);
+    console.log(data);
 }
 
 async function citySearch(){
@@ -115,6 +136,7 @@ async function citySearch(){
     const data = await promise.json();
 
     console.log(data);
+    //returns Array of 5 (data[dayyouneed(0-4)].country and . state and . name and .lat and .lon)
 }
 
 // fave.addEventListener("click", function()){
@@ -125,22 +147,74 @@ async function citySearch(){
 
 // }
 
-async function showSearch(val){
-results.innerHTML = "";
-if(val == "") {
-    return;
+// async function showSearch(val){
+// results.innerHTML = "";
+// if(val == "") {
+//     return;
+// }
+// let list = "";
+// const promise = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${testPlace}&limit=5&appid=${apiKey}`)
+// const data = await promise.json();
+// (function (data){
+// for (i=0; i<data.length; i++){
+//     list += "<li>" + data[i] + "</li>"
+// }
+// results.innerHTML = "<ul>" + list + "</ul>";
+// return true;
+// }).catch(function(err){
+//     console.log("ERROR", err);
+//     return false;
+// })
+// }
+
+searchBar.addEventListener("keypress", function(e){
+    if (event.key === "Enter") {
+        userSearch = searchBar.value;
+        searchFill();
+    }
+});
+
+async function searchFill(){
+    if(userSearch != ""){
+    const promise = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=5&appid=${apiKey}`)
+    const data = await promise.json();
+    locateData = await data;
+    if (data[0]) {
+        option1 = [data[0].name + ", " + data[0].state + ", " + data[0].country]
+    }
+    if (data[1]) {
+        option1 = [data[1].name + ", " + data[1].state + ", " + data[1].country]
+    }
+    if (data[2]) {
+        option1 = [data[2].name + ", " + data[2].state + ", " + data[2].country]
+    }
+    if (data[3]) {
+        option1 = [data[3].name + ", " + data[3].state + ", " + data[3].country]
+    }
+    if (data[4]) {
+        option1 = [data[4].name + ", " + data[4].state + ", " + data[4].country]
+    }
+    cityOptions();
+}else{
+    results.innerHTML = "";
+};
 }
-let list = "";
-const promise = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${testPlace}&limit=5&appid=${apiKey}`)
-const data = await promise.json();
-(function (data){
-for (i=0; i<data.length; i++){
-    list += "<li>" + data[i] + "</li>"
-}
-results.innerHTML = "<ul>" + list + "</ul>";
-return true;
-}).catch(function(err){
-    console.log("ERROR", err);
-    return false;
-})
+
+function cityOptions(){
+    results.innerHTML = "";
+
+    let loca1 = document.createElement("p");
+    loca1.textContent = option1;
+    loca1.className = "txtC"
+    loca1.addEventListener("click", function(e){
+        lat = locateData[0].lat;
+        lon = locateData[0].lon;
+        storeMe = locateData[0].name + ", " + locateData[0].state + ", " + locateData[0].country;
+        
+        results = "";
+        searchBar.innerHTML = "";
+    });
+    let box = document.createElement("div");
+    box.className = "searchOptions";
+    box.appendChild(loca1);
 }
