@@ -65,6 +65,8 @@ let currentData;
 //to hold current weather data
 let currentDate;
 //to hold Date data type of current day
+let myLoca;
+//to hold our current location data
 let favoriteArray = [];
 //array to save favorited cities to
 let userSearch = "";
@@ -140,7 +142,7 @@ async function Current(){
     } else{
         toDay = "Saturday";
     }
-    console.log(toDay)
+    // console.log(toDay)
 
     if(dayOnly != null){
         dayOnly.innerText = toDay;
@@ -172,18 +174,47 @@ async function Current(){
     } else{
         toMonth =  "December";
     }
-    console.log(toMonth);
+    // console.log(toMonth);
 
     let toDate = currentDate.getDate();
-    console.log(toDate);
+    // console.log(toDate);
 
     fullDate.innerText = toDay + ", " + toMonth + " " + toDate;
 
     // mainIcon.src= currentData.weather[0].icon
     //insert icon replacement code here
+    if(currentData.weather[0].icon == "01d"){
+        mainIcon.src = "./assets/01D.png"
+    } else if (currentData.weather[0].icon == "01n"){
+        mainIcon.src = "./assets/01N.png"
+    } else if(currentData.weather[0].icon == "02d"){
+        mainIcon.src = "./assets/02D.png"
+    } else if (currentData.weather[0].icon == "02n"){
+        mainIcon.src = "./assets/02N.png"
+    } else if (currentData.weather[0].icon == "03d" || currentData.weather[0].icon == "03n"){
+        mainIcon.src = "./assets/03.png"
+    } else if (currentData.weather[0].icon == "04d" || currentData.weather[0].icon == "04n"){
+        mainIcon.src = "./assets/04.png"
+    } else if (currentData.weather[0].icon == "09d" || currentData.weather[0].icon == "09n"){
+        mainIcon.src = "./assets/09.png"
+    } else if(currentData.weather[0].icon == "10d"){
+        mainIcon.src = "./assets/10D.png"
+    } else if (currentData.weather[0].icon == "10n"){
+        mainIcon.src = "./assets/10N.png"
+    } else if (currentData.weather[0].icon == "11d" || currentData.weather[0].icon == "11n"){
+        mainIcon.src = "./assets/11.png"
+    } else if (currentData.weather[0].icon == "13d" || currentData.weather[0].icon == "13n"){
+        mainIcon.src = "./assets/13.png"
+    } else if (currentData.weather[0].icon == "50d" || currentData.weather[0].icon == "50n"){
+        mainIcon.src = "./assets/50.png"
+    }
 
     if(currentTemp != null){
     currentTemp.innerText = Math.round(currentData.main.temp) + "°";
+    }
+
+    if(maxNmin != null){
+        maxNmin.innerText = `Max. ${Math.round(currentData.main.temp_max)}°, Min. ${Math.round(currentData.main.temp_min)}°`
     }
 
     console.log(data.weather[0].icon);
@@ -193,16 +224,28 @@ async function Current(){
 async function foreCast(){
     const promise = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`)
     const data = await promise.json();
+    const fore = await data;
 
     console.log(data.list);
-    console.log(data.list[0].weather[0].icon)
+    //40 arrays, every 8 [] is one day
+    // console.log(data.list[0].weather[0].icon)
+    // if(fore ==)
 }
 
 async function ourPlace(){
     const promise = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${apiKey}`)
     const data = await promise.json();
+    const myLoca = await data;
 
-    console.log(data[0]);
+    // console.log(data[0].name);
+    // console.log(data[0].state);
+
+    if(bigCity != null){
+        bigCity.innerText = myLoca[0].name;
+    };
+    if(bigState != null){
+        bigState.innerText = myLoca[0].state;
+    }
 }
 
 async function citySearch(){

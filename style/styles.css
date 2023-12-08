@@ -40,6 +40,50 @@ a :active{
     border: transparent;
     border-radius: 25px;
 }
+.mycontainer{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left: 30%;
+    width: 39%;
+    height: 200px;
+    padding: 20px;
+}
+.geoIcon{
+    position: absolute;
+    right: 35%; top: 3%;
+    height: 55px;
+    margin-top: 20px;
+}
+.bigDay{
+    position: absolute;
+    left: 10%;
+}
+.bigIcon{
+   margin-bottom: 20%;
+   position: absolute;
+   left: 8%; top: 34%;
+}
+.mainTemp{
+    position: absolute;
+    left: 20%; top: 32%;
+    font-size: 100px;
+}
+.myCity{
+    position: absolute;
+    right: 10%;
+}
+.myState{
+    position: absolute;
+    right: 10%; top: 30%;
+}
+.myTemp{
+    position: absolute;
+    bottom: 8%;
+}
+.faveIcon{
+    position: absolute;
+}
 .backBtn{
     background-color: rgb(255, 255, 255, 0.3);
     border-radius: 40px;
