@@ -124,31 +124,68 @@ async function Current(){
     const data = await promise.json();
     currentData = await data;
     currentDate = new Date(currentData.dt *1000);
-    toDay = currentDate.getDay();
-    if(toDay == 0){
-        dayOnly.innerText = "Sunday";
-    } else if(toDay == 1){
-        dayOnly.innerText = "Monday";
-    } else if(toDay == 2){
-        dayOnly.innerText = "Tuesday";
-    } else if(toDay == 3){
-        dayOnly.innerText = "Wednesday";
-    } else if(toDay == 4){
-        dayOnly.innerText = "Thursday";
-    } else if(toDay == 5){
-        dayOnly.innerText = "Friday";
-    } else if(toDay == 6){
-        dayOnly.innerText = "Saturday";
+    let rawDay = currentDate.getDay();
+    if(rawDay == 0){
+        toDay = "Sunday";
+    } else if(rawDay == 1){
+        toDay = "Monday";
+    } else if(rawDay == 2){
+        toDay = "Tuesday";
+    } else if(rawDay == 3){
+        toDay = "Wednesday";
+    } else if(rawDay == 4){
+        toDay = "Thursday";
+    } else if(rawDay == 5){
+        toDay = "Friday";
+    } else{
+        toDay = "Saturday";
     }
     console.log(toDay)
 
-    toMonth =  currentDate.getMonth();
+    if(dayOnly != null){
+        dayOnly.innerText = toDay;
+    }
 
-    mainIcon.src= currentData.weather[0].icon
+    let rawMonth =  currentDate.getMonth();
+    if(rawMonth == 0){
+        toMonth = "January";
+    } else if(rawMonth == 1){
+        toMonth =  "February";
+    } else if(rawMonth == 2){
+        toMonth =  "March";
+    } else if(rawMonth == 3){
+        toMonth =  "April";
+    } else if(rawMonth == 4){
+        toMonth =  "May";
+    } else if(rawMonth == 5){
+        toMonth =  "June";
+    } else if(rawMonth == 6){
+        toMonth =  "July";
+    } else if(rawMonth == 7){
+        toMonth =  "August";
+    } else if(rawMonth == 8){
+        toMonth =  "September";
+    } else if(rawMonth == 9){
+        toMonth =  "October";
+    } else if(rawMonth == 10){
+        toMonth =  "November";
+    } else{
+        toMonth =  "December";
+    }
+    console.log(toMonth);
+
+    let toDate = currentDate.getDate();
+    console.log(toDate);
+
+    fullDate.innerText = toDay + ", " + toMonth + " " + toDate;
+
+    // mainIcon.src= currentData.weather[0].icon
     //insert icon replacement code here
 
+    if(currentTemp != null){
     currentTemp.innerText = Math.round(currentData.main.temp) + "°";
-    
+    }
+
     console.log(data.weather[0].icon);
     // console.log(data);
 }
@@ -158,13 +195,14 @@ async function foreCast(){
     const data = await promise.json();
 
     console.log(data.list);
+    console.log(data.list[0].weather[0].icon)
 }
 
 async function ourPlace(){
     const promise = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${apiKey}`)
     const data = await promise.json();
 
-    console.log(data);
+    console.log(data[0]);
 }
 
 async function citySearch(){
