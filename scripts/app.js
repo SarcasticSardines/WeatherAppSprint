@@ -43,18 +43,28 @@ let d5Low = document.getElementById("d5Low");
 let d6Low = document.getElementById("d6Low");
 
 
-let urLat;
-let urLong;
-//stores user's lat and long values if they accept geolocation
+// let urLat;
+// let urLong;
+// //stores user's lat and long values if they accept geolocation
+let lat;
+let lon;
 let testPlace = "Stockton, CA";
 let locateData;
 //to hold data from geosearch (of names) like lat, long, city, state, country
-let cityData;
-//add event listener to display city name, state name
-let dateData;
-//add event listener to display day of week, month, day of month(number)
-let dayData;
-//add event listener to display day of week only
+// let cityData;
+// add event listener to display city name, state name
+// let dateData;
+// hold data of day of week, month, day of month(number)
+let toDay;
+// to store day of week from getDay
+let toMonth;
+//to store month from getMonth
+let toDate;
+//to store day of month from getDate
+let currentData;
+//to hold current weather data
+let currentDate;
+//to hold Date data type of current day
 let favoriteArray = [];
 //array to save favorited cities to
 let userSearch = "";
@@ -94,8 +104,8 @@ randomLong();
 
 function AllowAcc(position){
     console.log("Our latitude and longitude: " + position.coords.latitude + ", " + position.coords.longitude)
-    urLat = position.coords.latitude;
-    urLong = position.coords.longitude;
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
     Current();
     foreCast();
     ourPlace();
@@ -110,22 +120,48 @@ function DenyAcc(error){
 
 
 async function Current(){
-    const promise = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${urLat}&lon=${urLong}&appid=${apiKey}&units=imperial`)
+    const promise = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`)
     const data = await promise.json();
+    currentData = await data;
+    currentDate = new Date(currentData.dt *1000);
+    toDay = currentDate.getDay();
+    if(toDay == 0){
+        dayOnly.innerText = "Sunday";
+    } else if(toDay == 1){
+        dayOnly.innerText = "Monday";
+    } else if(toDay == 2){
+        dayOnly.innerText = "Tuesday";
+    } else if(toDay == 3){
+        dayOnly.innerText = "Wednesday";
+    } else if(toDay == 4){
+        dayOnly.innerText = "Thursday";
+    } else if(toDay == 5){
+        dayOnly.innerText = "Friday";
+    } else if(toDay == 6){
+        dayOnly.innerText = "Saturday";
+    }
+    console.log(toDay)
+
+    toMonth =  currentDate.getMonth();
+
+    mainIcon.src= currentData.weather[0].icon
+    //insert icon replacement code here
+
+    currentTemp.innerText = Math.round(currentData.main.temp) + "°";
     
     console.log(data.weather[0].icon);
     // console.log(data);
 }
 
 async function foreCast(){
-    const promise = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${urLat}&lon=${urLong}&appid=${apiKey}&units=imperial`)
+    const promise = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`)
     const data = await promise.json();
 
     console.log(data.list);
 }
 
 async function ourPlace(){
-    const promise = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${urLat}&lon=${urLong}&limit=5&appid=${apiKey}`)
+    const promise = await fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${apiKey}`)
     const data = await promise.json();
 
     console.log(data);
@@ -139,12 +175,13 @@ async function citySearch(){
     //returns Array of 5 (data[dayyouneed(0-4)].country and . state and . name and .lat and .lon)
 }
 
+
+
+
+
 // fave.addEventListener("click", function()){
 //     //arrayname.push(input.value)
 //     //localStorage.setItem('names', JSON.stringify(arrayname))
-// }
-// async function currentDate(){
-
 // }
 
 // async function showSearch(val){
@@ -167,54 +204,55 @@ async function citySearch(){
 // })
 // }
 
-searchBar.addEventListener("keypress", function(e){
-    if (event.key === "Enter") {
-        userSearch = searchBar.value;
-        searchFill();
-    }
-});
 
-async function searchFill(){
-    if(userSearch != ""){
-    const promise = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=5&appid=${apiKey}`)
-    const data = await promise.json();
-    locateData = await data;
-    if (data[0]) {
-        option1 = [data[0].name + ", " + data[0].state + ", " + data[0].country]
-    }
-    if (data[1]) {
-        option1 = [data[1].name + ", " + data[1].state + ", " + data[1].country]
-    }
-    if (data[2]) {
-        option1 = [data[2].name + ", " + data[2].state + ", " + data[2].country]
-    }
-    if (data[3]) {
-        option1 = [data[3].name + ", " + data[3].state + ", " + data[3].country]
-    }
-    if (data[4]) {
-        option1 = [data[4].name + ", " + data[4].state + ", " + data[4].country]
-    }
-    cityOptions();
-}else{
-    results.innerHTML = "";
-};
-}
+// searchBar.addEventListener("keypress", function(e){
+//     if (event.key === "Enter") {
+//         userSearch = searchBar.value;
+//         searchFill();
+//     }
+// });
 
-function cityOptions(){
-    results.innerHTML = "";
+// async function searchFill(){
+//     if(userSearch != ""){
+//     const promise = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=5&appid=${apiKey}`)
+//     const data = await promise.json();
+//     locateData = await data;
+//     if (data[0]) {
+//         option1 = [data[0].name + ", " + data[0].state + ", " + data[0].country]
+//     }
+//     if (data[1]) {
+//         option1 = [data[1].name + ", " + data[1].state + ", " + data[1].country]
+//     }
+//     if (data[2]) {
+//         option1 = [data[2].name + ", " + data[2].state + ", " + data[2].country]
+//     }
+//     if (data[3]) {
+//         option1 = [data[3].name + ", " + data[3].state + ", " + data[3].country]
+//     }
+//     if (data[4]) {
+//         option1 = [data[4].name + ", " + data[4].state + ", " + data[4].country]
+//     }
+//     cityOptions();
+// }else{
+//     results.innerHTML = "";
+// };
+// }
 
-    let loca1 = document.createElement("p");
-    loca1.textContent = option1;
-    loca1.className = "txtC"
-    loca1.addEventListener("click", function(e){
-        lat = locateData[0].lat;
-        lon = locateData[0].lon;
-        storeMe = locateData[0].name + ", " + locateData[0].state + ", " + locateData[0].country;
+// function cityOptions(){
+//     results.innerHTML = "";
+
+//     let loca1 = document.createElement("p");
+//     loca1.textContent = option1;
+//     loca1.className = "txtC"
+//     loca1.addEventListener("click", function(e){
+//         lat = locateData[0].lat;
+//         lon = locateData[0].lon;
+//         storeMe = locateData[0].name + ", " + locateData[0].state + ", " + locateData[0].country;
         
-        results = "";
-        searchBar.innerHTML = "";
-    });
-    let box = document.createElement("div");
-    box.className = "searchOptions";
-    box.appendChild(loca1);
-}
+//         results = "";
+//         searchBar.innerHTML = "";
+//     });
+//     let box = document.createElement("div");
+//     box.className = "searchOptions";
+//     box.appendChild(loca1);
+// }
