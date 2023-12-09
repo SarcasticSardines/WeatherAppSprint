@@ -71,11 +71,7 @@ let favoriteArray = [];
 //array to save favorited cities to
 let userSearch = "";
 //empty string input for searchbar function
-let option1 = [];
-let option2 = [];
-let option3 = [];
-let option4 = [];
-let option5 = [];
+let storeData = [];
 //(max) limit of 5 arrays to hold+display autocomplete options for locations search in (under) searchbar
 let storeMe = "";
 //FOR LOCAL STORAGE
@@ -258,82 +254,51 @@ async function citySearch(){
 
 
 
+searchBar.addEventListener("keyup", function(e){
+        userSearch = searchBar.value;
+        searchFill();
+});
 
+async function searchFill(){
+    if(userSearch != ""){
+    const promise = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=5&appid=${apiKey}`)
+    const data = await promise.json();
+    locateData = await data;
+    storeData = [];
+    for(let i=0; i<locateData.length; i++){
+        storeData.push(locateData[i].name + ", " + locateData[i].state + ", " + locateData[i].lat + ", " + locateData[i].lon);
+    }
+    console.log(storeData)
+    cityOptions();
+}else{
+    results.innerHTML = "";
+};
+}
 
-// fave.addEventListener("click", function()){
-//     //arrayname.push(input.value)
-//     //localStorage.setItem('names', JSON.stringify(arrayname))
-// }
+function cityOptions(){
+    results.innerHTML = "";
 
-// async function showSearch(val){
-// results.innerHTML = "";
-// if(val == "") {
-//     return;
-// }
-// let list = "";
-// const promise = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${testPlace}&limit=5&appid=${apiKey}`)
-// const data = await promise.json();
-// (function (data){
-// for (i=0; i<data.length; i++){
-//     list += "<li>" + data[i] + "</li>"
-// }
-// results.innerHTML = "<ul>" + list + "</ul>";
-// return true;
-// }).catch(function(err){
-//     console.log("ERROR", err);
-//     return false;
-// })
-// }
+    let loca = document.createElement("div");
+    loca.className = "txtC searchOptions"
 
+    for(let i = 0; i < storeData.length; i++){
+        let optionArr = storeData[i].split(", ");
+        let cityTxt = document.createElement("a");
+        cityTxt.className = "d-flex justify-content-start"
+     
+            cityTxt.textContent = optionArr[0] + ", " + optionArr[1];
 
-// searchBar.addEventListener("keypress", function(e){
-//     if (event.key === "Enter") {
-//         userSearch = searchBar.value;
-//         searchFill();
-//     }
-// });
-
-// async function searchFill(){
-//     if(userSearch != ""){
-//     const promise = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${userSearch}&limit=5&appid=${apiKey}`)
-//     const data = await promise.json();
-//     locateData = await data;
-//     if (data[0]) {
-//         option1 = [data[0].name + ", " + data[0].state + ", " + data[0].country]
-//     }
-//     if (data[1]) {
-//         option1 = [data[1].name + ", " + data[1].state + ", " + data[1].country]
-//     }
-//     if (data[2]) {
-//         option1 = [data[2].name + ", " + data[2].state + ", " + data[2].country]
-//     }
-//     if (data[3]) {
-//         option1 = [data[3].name + ", " + data[3].state + ", " + data[3].country]
-//     }
-//     if (data[4]) {
-//         option1 = [data[4].name + ", " + data[4].state + ", " + data[4].country]
-//     }
-//     cityOptions();
-// }else{
-//     results.innerHTML = "";
-// };
-// }
-
-// function cityOptions(){
-//     results.innerHTML = "";
-
-//     let loca1 = document.createElement("p");
-//     loca1.textContent = option1;
-//     loca1.className = "txtC"
-//     loca1.addEventListener("click", function(e){
-//         lat = locateData[0].lat;
-//         lon = locateData[0].lon;
-//         storeMe = locateData[0].name + ", " + locateData[0].state + ", " + locateData[0].country;
-        
-//         results = "";
-//         searchBar.innerHTML = "";
-//     });
-//     let box = document.createElement("div");
-//     box.className = "searchOptions";
-//     box.appendChild(loca1);
-// }
+        cityTxt.addEventListener("click", function(e){
+            lat = optionArr[3];
+            lon = optionArr[4];
+            storeMe = optionArr[0] + ", " + optionArr[1] + ", " + optionArr[2] + ", " + optionArr[3] + ", " + optionArr[4];
+            Current();
+            foreCast();
+            results.innerHTML = "";
+            searchBar.value = "";
+        });
+        loca.appendChild(cityTxt);
+    }
+    results.appendChild(loca);
+    
+}

@@ -34,6 +34,10 @@ a :active{
     border-radius: 40px;
     margin-top: 100px;
 }
+.magIcon{
+    position: absolute;
+    bottom: 5px; left: 9%;
+}
 .space{
     margin-left: 21%;
     background-color: rgb(255, 255, 255, 0.4);
@@ -71,18 +75,22 @@ a :active{
 }
 .myCity{
     position: absolute;
-    right: 10%;
+    right: 12%;
 }
 .myState{
     position: absolute;
-    right: 10%; top: 30%;
+    right: 11%; top: 32%;
 }
 .myTemp{
     position: absolute;
-    bottom: 8%;
+    bottom: 8%; right: 15%;
 }
 .faveIcon{
     position: absolute;
+    right: 4%;
+}
+.foreIcons{
+    height: 80px;
 }
 .backBtn{
     background-color: rgb(255, 255, 255, 0.3);
@@ -93,7 +101,9 @@ a :active{
 }
 .searchOptions{
     position: absolute;
+    left: 8%;
     background-color: rgb(255, 255, 255, 0.5);
-    border-radius: 25px;
-    padding: 10px;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-top: 5px;
 }
